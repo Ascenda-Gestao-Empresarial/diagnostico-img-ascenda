@@ -96,6 +96,11 @@ body{font-family:'Barlow',sans-serif;background:var(--off);color:var(--t1);font-
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .btn-go{width:100%;padding:13px;background:var(--lime);color:var(--navy-d);border:none;border-radius:3px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;margin-top:6px}
 .btn-go:hover{background:var(--lime-l)}
+.lgpd-wrap{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:#f4f6fc;border-radius:6px;border:1px solid var(--border);margin-top:10px}
+.lgpd-wrap input[type=checkbox]{width:18px;height:18px;min-width:18px;margin-top:1px;accent-color:var(--navy);cursor:pointer}
+.lgpd-wrap label{font-size:12px;color:var(--t2);line-height:1.55;cursor:pointer}
+.lgpd-wrap label a{color:var(--navy-m);text-decoration:underline}
+.lgpd-wrap label a:hover{color:var(--navy)}
 
 /* ─── FORM ─── */
 .form-grid{display:grid;grid-template-columns:252px 1fr;min-height:calc(100vh - 60px)}
@@ -326,6 +331,12 @@ body{font-family:'Barlow',sans-serif;background:var(--off);color:var(--t1);font-
               <option>Acima de R$ 50 mi</option>
             </select>
           </div>
+        </div>
+        <div class="lgpd-wrap">
+          <input type="checkbox" id="fLgpd"/>
+          <label for="fLgpd">
+            Concordo com o uso dos meus dados pessoais pela <strong>Ascenda Gestão Empresarial</strong> para geração do diagnóstico, contato comercial e melhoria da metodologia IMG. Os dados não serão compartilhados com terceiros. Em conformidade com a <strong>Lei nº 13.709/2018 (LGPD)</strong>. Para exercer seus direitos ou solicitar a exclusão dos dados, entre em contato pelo <a href="mailto:leanderson@ascenda.adm.br">leanderson@ascenda.adm.br</a>.
+          </label>
         </div>
         <button class="btn-go" onclick="startDx()">Iniciar diagnóstico →</button>
       </div>
@@ -795,11 +806,13 @@ function startDx(){
   const n=document.getElementById('fCo').value.trim();
   const nm=document.getElementById('fNm').value.trim();
   const em=document.getElementById('fEm').value.trim();
-  const tel=document.getElementById('fTel').value.trim(); // Captura o telefone
+  const tel=document.getElementById('fTel').value.trim();
   const sg=document.getElementById('fSg').value;
-  
+  const lgpd=document.getElementById('fLgpd').checked;
+
   if(!n||!nm||!em||!tel||!sg){ alert('Por favor, preencha todos os campos obrigatórios (incluindo Telefone e Setor).'); return; }
-  
+  if(!lgpd){ alert('Para continuar, é necessário concordar com o uso dos dados conforme a LGPD.'); return; }
+
   co = { company:n, name:nm, role:document.getElementById('fRl').value, email:em, phone:tel, segment:sg, revenue:document.getElementById('fRv').value };
   cur=0; ans={}; na=new Set();
   AREAS.forEach(a=>{ ans[a.id]={}; });
