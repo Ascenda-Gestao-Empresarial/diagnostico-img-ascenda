@@ -433,97 +433,277 @@ const AREAS = [
   { id:'financeiro', name:'Financeiro', icon:'₢',
     desc:'Controle, visibilidade e previsibilidade das finanças da empresa.',
     q:[
-      { dim:'Estratégica', txt:'Você sabe exatamente para onde está indo cada real que entra na sua empresa?', opts:['Não tenho registro claro das movimentações.','Tenho visão geral, mas faltam detalhes e registro formal.','Registro parte dos lançamentos, mas sem sistema estruturado.','Faço acompanhamento frequente do fluxo com boa cobertura.','Controlo tudo em tempo real via sistema integrado.'] },
-      { dim:'Tática', txt:'O crescimento da empresa tem se traduzido em lucros reais e geração de caixa?', opts:['Faturamento alto, mas sem lucro ou caixa estruturado.','Lucro e caixa positivos ocasionalmente, mas instáveis.','Observamos resultado positivo em alguns períodos.','Lucro consistente e caixa saudável na maioria do tempo.','Crescimento sólido com lucro robusto e geração de caixa contínua.'] },
-      { dim:'Operacional', txt:'Existe uma rotina estruturada de fechamento e análise financeira?', opts:['Nunca faço fechamento mensal.','Fechamento ocasional, sem padrão definido.','Tenho rotina básica de fechamento.','Fecho todo mês e reviso os números com regularidade.','Fechamento automatizado e validado por KPIs.'] }
+      { dim:'Estratégica', txt:'Você sabe exatamente para onde está indo cada real que entra na sua empresa?', opts:[
+        'Não tenho nenhum registro das movimentações financeiras.',
+        'Tenho uma visão geral, mas sem registro formal.',
+        'Registro parte dos lançamentos, mas sem sistema estruturado.',
+        'Acompanho o fluxo regularmente com boa cobertura.',
+        'Controlo tudo em tempo real via sistema integrado.'] },
+      { dim:'Tática', txt:'O crescimento da empresa tem se traduzido em lucros reais e geração de caixa?', opts:[
+        'Não sei se a empresa está gerando lucro.',
+        'Sei que há lucro, mas o caixa é instável.',
+        'Temos resultado positivo em alguns períodos.',
+        'O lucro é consistente na maioria dos meses.',
+        'O crescimento gera lucro robusto e caixa de forma contínua.'] },
+      { dim:'Operacional', txt:'Existe uma rotina estruturada de fechamento e análise financeira?', opts:[
+        'Nunca faço fechamento mensal.',
+        'Faço fechamento ocasionalmente, sem padrão.',
+        'Tenho rotina básica de fechamento mensal.',
+        'Fecho todo mês e reviso os números com regularidade.',
+        'O fechamento é automatizado e validado por KPIs.'] }
     ]
   },
   { id:'precificacao', name:'Precificação', icon:'◎',
     desc:'Avalia se os preços são definidos com base em dados, margem e posicionamento estratégico.',
     q:[
-      { dim:'Estratégica', txt:'A precificação dos seus produtos ou serviços é definida com base em estratégia de posicionamento e análise de mercado?', opts:['Preço definido por intuição ou "no chute", sem análise.','Copiamos preços de concorrentes sem calcular nossa margem.','Consideramos concorrência e custos de forma básica.','Temos política de preços alinhada ao posicionamento e margem.','Precificação estratégica com análise de valor percebido, concorrência e margem desejada.'] },
-      { dim:'Tática', txt:'Você conhece a margem de contribuição de cada produto ou serviço e usa isso para decidir o mix de vendas?', opts:['Não sei o que é margem de contribuição.','Sei o conceito, mas não calculo por produto.','Calculo marginalmente, mas sem sistematização.','Conheço as margens e uso para priorizar alguns produtos.','Monitoro margem de contribuição por produto/serviço em tempo real e uso para decisões táticas.'] },
-      { dim:'Operacional', txt:'Existe uma rotina de revisão de preços considerando variações de custos, inflação e mercado?', opts:['Não revisamos preços com nenhuma frequência.','Revisamos apenas quando o custo aumenta muito.','Revisamos anualmente sem critério claro.','Revisamos periodicamente com base em custos e mercado.','Temos processo formal e frequente de revisão de preços com critérios definidos.'] }
+      { dim:'Estratégica', txt:'A precificação dos seus produtos ou serviços é definida com base em estratégia de posicionamento e análise de mercado?', opts:[
+        'O preço é definido por intuição, sem nenhuma análise.',
+        'Copiamos os preços dos concorrentes sem calcular nossa margem.',
+        'Consideramos custos e concorrência de forma básica.',
+        'Temos política de preços alinhada ao posicionamento e à margem.',
+        'A precificação é estratégica e considera valor percebido, concorrência e margem desejada.'] },
+      { dim:'Tática', txt:'Você conhece a margem de contribuição de cada produto ou serviço e usa isso para decidir o mix de vendas?', opts:[
+        'Não sei o que é margem de contribuição.',
+        'Conheço o conceito, mas não calculo por produto.',
+        'Calculo a margem de alguns produtos sem sistematização.',
+        'Conheço as margens e uso para priorizar produtos.',
+        'Monitoro margem de contribuição por produto em tempo real e uso para decisões táticas.'] },
+      { dim:'Operacional', txt:'Existe uma rotina de revisão de preços considerando variações de custos, inflação e mercado?', opts:[
+        'Nunca revisamos os preços.',
+        'Revisamos apenas quando o custo aumenta muito.',
+        'Revisamos anualmente sem critério definido.',
+        'Revisamos periodicamente com base em custos e mercado.',
+        'Temos processo formal e frequente de revisão de preços com critérios definidos.'] }
     ]
   },
   { id:'estrategico', name:'Planejamento Estratégico', icon:'◈',
     desc:'Clareza de direção, planejamento e alinhamento estratégico.',
     q:[
-      { dim:'Estratégica', txt:'Sua empresa atua com base em direção estratégica clara, antecipando pressões do mercado?', opts:['Decisões reativas sem visão de longo prazo.','Planejamento esporádico, reagindo na pressão.','Direção estratégica ocasional, não constante.','Visão clara e plano seguido na maioria das decisões.','Estratégia proativa orienta todas as iniciativas.'] },
-      { dim:'Tática', txt:'Sua empresa tem um plano estratégico estruturado com metas, prazos e responsáveis?', opts:['Não existe plano estruturado.','Metas definidas, mas não formalizadas.','Plano informal nem sempre seguido.','Plano detalhado com prazos e responsáveis.','Plano estratégico robusto, monitorado e revisado.'] },
-      { dim:'Operacional', txt:'A rotina operacional está alinhada com o crescimento planejado?', opts:['Rotina totalmente alheia ao planejamento.','Algumas rotinas conectadas sem consistência.','Rotina parcialmente alinhada ao plano.','Processos operacionais seguem o plano estratégico.','Rotina otimizada para suportar o crescimento.'] }
+      { dim:'Estratégica', txt:'Sua empresa atua com base em direção estratégica clara, antecipando pressões do mercado?', opts:[
+        'Não temos nenhuma visão de longo prazo.',
+        'Temos direção estratégica, mas só agimos sob pressão.',
+        'Temos direção estratégica, mas ela não orienta as decisões do dia a dia.',
+        'A visão estratégica está clara e orienta a maioria das decisões.',
+        'A estratégia é proativa e orienta todas as iniciativas da empresa.'] },
+      { dim:'Tática', txt:'Sua empresa tem um plano estratégico estruturado com metas, prazos e responsáveis?', opts:[
+        'Não existe nenhum plano estruturado.',
+        'Temos metas definidas, mas não estão formalizadas.',
+        'Temos um plano informal que nem sempre é seguido.',
+        'Temos um plano detalhado com prazos e responsáveis.',
+        'O plano estratégico é robusto, monitorado e revisado periodicamente.'] },
+      { dim:'Operacional', txt:'A rotina operacional está alinhada com o crescimento planejado?', opts:[
+        'A rotina é totalmente alheia ao planejamento.',
+        'Algumas rotinas estão conectadas ao plano.',
+        'A rotina está parcialmente alinhada ao plano.',
+        'Os processos operacionais seguem o plano estratégico.',
+        'A rotina é otimizada para suportar o crescimento planejado.'] }
     ]
   },
   { id:'comercial', name:'Comercial', icon:'⊕',
     desc:'Processo de vendas, previsibilidade e inteligência comercial.',
     q:[
-      { dim:'Estratégica', txt:'O time comercial atua com método e previsibilidade, sustentando o crescimento planejado?', opts:['Não temos processo de vendas definido.','Cada vendedor age de forma própria.','Processo básico, pouco documentado.','Time segue processo e metas claras.','Processo comercial escalável e previsível.'] },
-      { dim:'Tática', txt:'Você identifica claramente quais produtos ou clientes são mais lucrativos?', opts:['Não sei qual produto ou cliente gera lucro.','Tenho ideia, mas sem dados confiáveis.','Faço análises pontuais de margem.','Monitoro margens por perfil de produto/cliente.','Lucratividade avaliada em tempo real por segmento.'] },
-      { dim:'Operacional', txt:'A empresa consegue prever o volume de vendas futuras com segurança?', opts:['Não há previsão de vendas.','Estimativas imprecisas e esporádicas.','Previsões básicas e limitadas.','Projetamos vendas com base em histórico.','Previsões robustas validadas por KPIs e CRM.'] }
+      { dim:'Estratégica', txt:'O time comercial atua com método e previsibilidade, sustentando o crescimento planejado?', opts:[
+        'Não temos nenhum processo de vendas definido.',
+        'Cada vendedor age de forma própria.',
+        'Temos um processo básico e pouco documentado.',
+        'O time segue um processo com metas claras.',
+        'O processo comercial é escalável e previsível.'] },
+      { dim:'Tática', txt:'Você identifica claramente quais produtos ou clientes são mais lucrativos?', opts:[
+        'Não sei qual produto ou cliente gera mais lucro.',
+        'Tenho uma ideia, mas sem dados confiáveis.',
+        'Faço análises pontuais de lucratividade.',
+        'Monitoro margens por perfil de produto ou cliente.',
+        'A lucratividade é avaliada em tempo real por segmento.'] },
+      { dim:'Operacional', txt:'A empresa consegue prever o volume de vendas futuras com segurança?', opts:[
+        'Não fazemos nenhuma previsão de vendas.',
+        'Fazemos estimativas imprecisas e esporádicas.',
+        'Fazemos previsões básicas com base em histórico.',
+        'Projetamos vendas com metodologia e revisão periódica.',
+        'As previsões são robustas e validadas por KPIs e CRM.'] }
     ]
   },
   { id:'marketing', name:'Marketing', icon:'⊞',
     desc:'Comunicação de valor, ROI de marketing e gestão de canais.',
     q:[
-      { dim:'Estratégica', txt:'Sua marca expressa de forma clara o valor único que entrega ao mercado?', opts:['Comunicação confusa e genérica.','Dificuldade em destacar o valor diferencial.','Ajustamos a mensagem gradualmente.','Proposta de valor bem comunicada.','Marca reconhecida pelo diferencial claro.'] },
-      { dim:'Tática', txt:'Os investimentos em marketing são realizados com base em dados de retorno?', opts:['Investimos sem medir resultados.','ROI acompanhado de forma superficial.','Medição ocasional de campanhas.','ROI monitorado regularmente com relatórios.','Verba alocada conforme métricas precisas de retorno.'] },
-      { dim:'Operacional', txt:'A empresa acompanha regularmente os canais que mais geram leads e vendas?', opts:['Ignoramos a origem dos clientes.','Temos ideia vaga dos canais mais efetivos.','Monitoramos alguns canais manualmente.','Acompanhamento frequente de todos os canais.','Dados de canais otimizam investimentos em tempo real.'] }
+      { dim:'Estratégica', txt:'Sua marca expressa de forma clara o valor único que entrega ao mercado?', opts:[
+        'A comunicação é confusa e sem diferencial.',
+        'Temos dificuldade em comunicar o que nos diferencia.',
+        'Estamos ajustando a mensagem, mas ela ainda não está clara.',
+        'A proposta de valor está bem comunicada.',
+        'A marca é reconhecida pelo diferencial claro no mercado.'] },
+      { dim:'Tática', txt:'Os investimentos em marketing são realizados com base em dados de retorno?', opts:[
+        'Investimos sem medir nenhum resultado.',
+        'Acompanhamos o ROI de forma superficial.',
+        'Medimos o retorno ocasionalmente em algumas campanhas.',
+        'O ROI é monitorado regularmente com relatórios.',
+        'A verba é alocada com base em métricas precisas de retorno.'] },
+      { dim:'Operacional', txt:'A empresa acompanha regularmente os canais que mais geram leads e vendas?', opts:[
+        'Não sabemos de onde vêm nossos clientes.',
+        'Temos uma ideia vaga dos canais mais efetivos.',
+        'Monitoramos alguns canais manualmente.',
+        'Acompanhamos todos os canais com frequência.',
+        'Os dados de canais otimizam os investimentos em tempo real.'] }
     ]
   },
   { id:'operacoes', name:'Operações', icon:'⚙',
     desc:'Padronização, eficiência e controle dos processos operacionais.',
     q:[
-      { dim:'Estratégica', txt:'O processo de entrega ou produção é padronizado e previsível?', opts:['Cada entrega segue métodos distintos.','Procedimentos existem, mas não são aplicados.','Processos definidos com falhas de execução.','Execução padronizada e com boa previsibilidade.','Processo otimizado e totalmente previsível.'] },
-      { dim:'Tática', txt:'Os custos de produção e entrega de cada produto ou serviço são conhecidos?', opts:['Desconheço os custos de produção.','Estimativas vagas de custos.','Custos rastreados parcialmente.','Custos detalhados monitorados por produto.','Custo por unidade visível em dashboard em tempo real.'] },
-      { dim:'Operacional', txt:'Os prazos de entrega estão sendo cumpridos sem prejuízo à qualidade?', opts:['Entregas atrasadas e com retrabalhos constantes.','Cumprimos prazos, mas qualidade falha.','Prazos e qualidade atendidos ocasionalmente.','Entrega pontual e qualidade satisfatória na maioria.','Excelência em pontualidade e qualidade em todas as entregas.'] }
+      { dim:'Estratégica', txt:'O processo de entrega ou produção é padronizado e previsível?', opts:[
+        'Cada entrega segue um método diferente.',
+        'Temos procedimentos, mas não são aplicados.',
+        'Os processos estão definidos, mas a execução falha.',
+        'A execução é padronizada e previsível.',
+        'O processo é otimizado e totalmente previsível.'] },
+      { dim:'Tática', txt:'Os custos de produção e entrega de cada produto ou serviço são conhecidos?', opts:[
+        'Desconheço os custos de produção.',
+        'Tenho estimativas vagas de custo.',
+        'Rastreio os custos parcialmente.',
+        'Os custos são detalhados e monitorados por produto.',
+        'O custo por unidade é visível em dashboard em tempo real.'] },
+      { dim:'Operacional', txt:'Os prazos de entrega estão sendo cumpridos sem prejuízo à qualidade?', opts:[
+        'As entregas são frequentemente atrasadas.',
+        'Cumprimos os prazos, mas a qualidade falha.',
+        'Prazos e qualidade são atendidos ocasionalmente.',
+        'A entrega é pontual e a qualidade é satisfatória na maioria dos casos.',
+        'Temos excelência em pontualidade e qualidade em todas as entregas.'] }
     ]
   },
   { id:'suprimentos', name:'Suprimentos', icon:'⊞',
     desc:'Planejamento de compras, gestão de fornecedores e controle de custos de aquisição.',
     q:[
-      { dim:'Estratégica', txt:'As compras da empresa seguem um planejamento estruturado ou são feitas por urgência e improviso?', opts:['Compras sempre por urgência, sem qualquer planejamento.','Planejamento esporádico, mas a maioria ainda é por reação.','Planejamos alguns itens, mas improvisamos com frequência.','Planejamento de compras estruturado para a maioria dos itens.','Processo formal de compras baseado em histórico e projeção de demanda.'] },
-      { dim:'Tática', txt:'Os impactos das compras nos custos e na lucratividade são avaliados e controlados?', opts:['Compramos sem avaliar impacto no lucro ou nos custos.','Avaliamos custos pontualmente, sem controle sistemático.','Monitoramos custos de compras em algumas categorias.','Acompanhamos regularmente o impacto das compras na margem.','Controle total: cada compra é avaliada quanto a custo, margem e alternativas.'] },
-      { dim:'Operacional', txt:'Existe uma rotina ativa de negociação e avaliação de fornecedores?', opts:['Não negociamos — aceitamos o preço que nos oferecem.','Negociamos raramente, sem critério ou frequência definida.','Negociamos em algumas categorias, mas sem processo formal.','Temos rotina de negociação periódica com fornecedores principais.','Processo ativo de avaliação, homologação e negociação contínua com fornecedores.'] }
+      { dim:'Estratégica', txt:'As compras da empresa seguem um planejamento estruturado ou são feitas por urgência e improviso?', opts:[
+        'Todas as compras são feitas por urgência.',
+        'A maioria das compras é por reação.',
+        'Planejamos alguns itens, mas improvisamos com frequência.',
+        'A maioria das compras segue um planejamento estruturado.',
+        'As compras são baseadas em histórico e projeção de demanda.'] },
+      { dim:'Tática', txt:'Os impactos das compras nos custos e na lucratividade são avaliados e controlados?', opts:[
+        'Compramos sem avaliar o impacto no custo.',
+        'Avaliamos custos pontualmente.',
+        'Monitoramos custos de compras em algumas categorias.',
+        'Acompanhamos regularmente o impacto das compras na margem.',
+        'Cada compra é avaliada quanto a custo, margem e alternativas.'] },
+      { dim:'Operacional', txt:'Existe uma rotina ativa de negociação e avaliação de fornecedores?', opts:[
+        'Não negociamos — aceitamos o preço oferecido.',
+        'Negociamos raramente e sem critério.',
+        'Negociamos em algumas categorias sem processo formal.',
+        'Temos rotina de negociação periódica com fornecedores principais.',
+        'Temos processo ativo de avaliação, homologação e negociação contínua.'] }
     ]
   },
   { id:'pessoas', name:'Pessoas', icon:'◑',
     desc:'Liderança, engajamento, papéis e alocação de talentos.',
     q:[
-      { dim:'Estratégica', txt:'Existe clareza na liderança sobre os objetivos e como engajar o time?', opts:['Liderança sem foco claro ou comunicação.','Objetivos definidos, mas pouco divulgados.','Metas comunicadas, mas sem engajamento total.','Liderança comunica metas e motiva a equipe.','Time totalmente engajado e alinhado.'] },
-      { dim:'Tática', txt:'Os papéis e responsabilidades de cada colaborador estão bem definidos?', opts:['Funções confusas; ninguém sabe o que faz.','Algumas responsabilidades atribuídas sem clareza.','Papéis definidos informalmente.','Responsabilidades formalizadas e comunicadas.','Papéis detalhados e alinhados à estratégia.'] },
-      { dim:'Operacional', txt:'Os colaboradores estão posicionados de acordo com suas competências?', opts:['Funções e papéis indefinidos.','Alguns papéis sobrepostos.','Ajustes de função baseados em desempenho.','Competências alinhadas às funções.','Equipe estrategicamente alocada por competência.'] }
+      { dim:'Estratégica', txt:'Existe clareza na liderança sobre os objetivos e como engajar o time?', opts:[
+        'A liderança não tem foco claro nem comunicação estruturada.',
+        'Os objetivos existem, mas não são comunicados ao time.',
+        'As metas são comunicadas, mas o engajamento é baixo.',
+        'A liderança comunica metas e motiva a equipe.',
+        'O time está totalmente engajado e alinhado aos objetivos.'] },
+      { dim:'Tática', txt:'Os papéis e responsabilidades de cada colaborador estão bem definidos?', opts:[
+        'As funções são confusas e ninguém sabe exatamente o que faz.',
+        'Algumas responsabilidades estão atribuídas sem clareza.',
+        'Os papéis são definidos informalmente.',
+        'As responsabilidades estão formalizadas e comunicadas.',
+        'Os papéis são detalhados e alinhados à estratégia da empresa.'] },
+      { dim:'Operacional', txt:'Os colaboradores estão posicionados de acordo com suas competências?', opts:[
+        'Não há critério para definir quem faz o quê.',
+        'Alguns papéis estão sobrepostos.',
+        'Ajustamos as funções com base no desempenho observado.',
+        'As competências estão alinhadas às funções.',
+        'A equipe é alocada estrategicamente por competência.'] }
     ]
   },
   { id:'fiscal', name:'Fiscal / Contábil', icon:'⊟',
     desc:'Conformidade fiscal, uso da contabilidade e gestão tributária.',
     q:[
-      { dim:'Estratégica', txt:'Você compreende os principais tributos que paga e como reduzi-los?', opts:['Tributos desconhecidos ou não monitorados.','Conheço tributos principais, mas sem plano.','Avalio oportunidades de redução periodicamente.','Estratégia tributária em prática e revisada.','Otimização tributária contínua e alinhada a metas.'] },
-      { dim:'Tática', txt:'As informações contábeis são utilizadas ativamente na tomada de decisão?', opts:['Dados contábeis ignorados nas decisões.','Consultamos relatórios sem análise profunda.','Informações contábeis usadas ocasionalmente.','Dados contábeis orientam decisões financeiras.','Contabilidade integrada ao planejamento diário.'] },
-      { dim:'Operacional', txt:'A empresa entrega suas obrigações fiscais e contábeis em dia?', opts:['Obrigações fiscais atrasadas com frequência.','Entrega às vezes atrasada, mas corrigida.','Prazo geralmente cumprido com pequenas falhas.','Obrigações entregues pontualmente.','Cumprimento fiscal e contábil 100% no prazo.'] }
+      { dim:'Estratégica', txt:'Você compreende os principais tributos que paga e como reduzi-los?', opts:[
+        'Não monitoramos os tributos que pagamos.',
+        'Conheço os tributos principais, mas não tenho plano de redução.',
+        'Avalio oportunidades de redução tributária periodicamente.',
+        'Temos uma estratégia tributária em prática e revisada.',
+        'A otimização tributária é contínua e alinhada às metas do negócio.'] },
+      { dim:'Tática', txt:'As informações contábeis são utilizadas ativamente na tomada de decisão?', opts:[
+        'Os dados contábeis não são usados nas decisões.',
+        'Consultamos relatórios sem análise profunda.',
+        'Usamos informações contábeis ocasionalmente.',
+        'Os dados contábeis orientam nossas decisões financeiras.',
+        'A contabilidade está integrada ao planejamento diário.'] },
+      { dim:'Operacional', txt:'A empresa entrega suas obrigações fiscais e contábeis em dia?', opts:[
+        'As obrigações fiscais estão frequentemente atrasadas.',
+        'Entregamos às vezes com atraso.',
+        'Cumprimos os prazos com pequenas falhas ocasionais.',
+        'As obrigações são entregues pontualmente.',
+        'O cumprimento fiscal e contábil é 100% no prazo.'] }
     ]
   },
   { id:'tecnologia', name:'Tecnologia', icon:'⊡',
     desc:'Uso de sistemas, dados e tecnologia como vantagem competitiva.',
     q:[
-      { dim:'Estratégica', txt:'A empresa usa algum sistema para registrar, controlar e analisar dados do negócio?', opts:['Tudo manual, sem sistema.','Alguns registros digitais, desconectados.','Sistema básico sem integração completa.','Sistema integrado para análises.','Plataforma robusta com visão completa em tempo real.'] },
-      { dim:'Tática', txt:'A tecnologia utilizada contribui para o crescimento e eficiência operacional?', opts:['Operamos manualmente sem sistemas.','Ferramentas básicas sem integração.','Alguns sistemas suportam operações.','Sistemas integrados auxiliam eficiência.','Tecnologia impulsiona escala e crescimento.'] },
-      { dim:'Operacional', txt:'A gestão é fundamentada em dados consistentes ou depende de intuição?', opts:['Decisões apenas por intuição.','Uso dados, mas sem confiabilidade.','Painéis básicos auxiliam decisões.','Dados atualizados suportam a gestão.','Decisões orientadas por dados robustos e integrados.'] }
+      { dim:'Estratégica', txt:'A empresa usa algum sistema para registrar, controlar e analisar dados do negócio?', opts:[
+        'Tudo é feito manualmente, sem sistema.',
+        'Temos registros digitais desconectados entre si.',
+        'Usamos um sistema básico sem integração completa.',
+        'Temos um sistema integrado que permite análises.',
+        'Operamos com uma plataforma robusta com visão completa em tempo real.'] },
+      { dim:'Tática', txt:'A tecnologia utilizada contribui para o crescimento e eficiência operacional?', opts:[
+        'Operamos manualmente sem apoio de sistemas.',
+        'Usamos ferramentas básicas sem integração.',
+        'Alguns sistemas suportam partes da operação.',
+        'Os sistemas integrados aumentam a eficiência.',
+        'A tecnologia impulsiona escala e crescimento de forma ativa.'] },
+      { dim:'Operacional', txt:'A gestão é fundamentada em dados consistentes ou depende de intuição?', opts:[
+        'As decisões são tomadas por intuição.',
+        'Usamos dados, mas sem confiabilidade.',
+        'Temos painéis básicos que auxiliam algumas decisões.',
+        'Os dados atualizados suportam a gestão regularmente.',
+        'Todas as decisões são orientadas por dados robustos e integrados.'] }
     ]
   },
   { id:'governanca', name:'Governança', icon:'▦',
     desc:'Estrutura de decisão, processos formais e controles organizacionais.',
     q:[
-      { dim:'Estratégica', txt:'A empresa possui estrutura formal de governança — como comitê, conselho ou reuniões de diretoria com pauta e registro?', opts:['Não existe nenhuma estrutura formal de governança.','Reuniões informais ocasionais sem registro.','Reuniões periódicas com pauta, mas sem ata formal.','Comitê ou conselho com reuniões regulares e atas.','Governança estruturada com papéis, responsabilidades e ciclos de revisão definidos.'] },
-      { dim:'Tática', txt:'Existem políticas e processos formais que orientam as principais decisões da empresa?', opts:['Nenhuma política formalizada; tudo decidido caso a caso.','Alguns processos existem, mas não documentados.','Políticas parcialmente documentadas e pouco aplicadas.','Políticas documentadas e seguidas pela maioria das áreas.','Políticas completas, revisadas periodicamente e integradas à operação.'] },
-      { dim:'Operacional', txt:'Os controles internos da empresa são suficientes para identificar e mitigar riscos operacionais?', opts:['Não há nenhum controle interno definido.','Controles pontuais e informais.','Controles básicos implementados em algumas áreas.','Controles internos estabelecidos e monitorados.','Controles robustos com auditoria e revisão periódica.'] }
+      { dim:'Estratégica', txt:'A empresa possui estrutura formal de governança — como comitê, conselho ou reuniões de diretoria com pauta e registro?', opts:[
+        'Não existe nenhuma estrutura formal de governança.',
+        'Fazemos reuniões informais ocasionais sem registro.',
+        'Fazemos reuniões periódicas com pauta, mas sem ata formal.',
+        'Temos comitê ou conselho com reuniões regulares e atas.',
+        'A governança é estruturada com papéis, responsabilidades e ciclos de revisão definidos.'] },
+      { dim:'Tática', txt:'Existem políticas e processos formais que orientam as principais decisões da empresa?', opts:[
+        'Nenhuma política está formalizada.',
+        'Alguns processos existem, mas não estão documentados.',
+        'Temos políticas parcialmente documentadas.',
+        'As políticas estão documentadas e seguidas pela maioria das áreas.',
+        'As políticas são completas, revisadas periodicamente e integradas à operação.'] },
+      { dim:'Operacional', txt:'Os controles internos da empresa são suficientes para identificar e mitigar riscos operacionais?', opts:[
+        'Não há nenhum controle interno definido.',
+        'Temos controles pontuais e informais.',
+        'Os controles básicos estão implementados em algumas áreas.',
+        'Os controles internos estão estabelecidos e monitorados.',
+        'Os controles são robustos e passam por auditoria e revisão periódica.'] }
     ]
   },
   { id:'cultura', name:'Cultura & Valores', icon:'❋',
     desc:'Propósito, valores e comportamentos que definem como a empresa opera.',
     q:[
-      { dim:'Estratégica', txt:'Os colaboradores conseguem explicar com clareza o propósito e os valores da empresa?', opts:['Propósito e valores não existem ou são desconhecidos.','Existem no papel, mas ninguém os conhece.','Alguns colaboradores conhecem, mas não é vivido.','A maioria conhece e demonstra nos comportamentos.','Propósito e valores são vividos diariamente e guiam decisões.'] },
-      { dim:'Tática', txt:'A liderança da empresa atua de forma consistente com os valores declarados?', opts:['A liderança contradiz os valores com frequência.','Há inconsistências pontuais entre discurso e prática.','A liderança tenta seguir os valores, mas com falhas.','Liderança alinhada aos valores na maior parte do tempo.','Liderança exemplifica os valores e exige consistência em toda a empresa.'] },
-      { dim:'Operacional', txt:'Existe uma rotina intencional para reforçar e desenvolver a cultura organizacional?', opts:['Não existe nenhuma ação deliberada de cultura.','Ações isoladas e esporádicas sem continuidade.','Algumas iniciativas, mas sem programa estruturado.','Programa de cultura em andamento com rituais definidos.','Cultura gerida ativamente com rituais, indicadores e revisão contínua.'] }
+      { dim:'Estratégica', txt:'Os colaboradores conseguem explicar com clareza o propósito e os valores da empresa?', opts:[
+        'O propósito e os valores não existem ou são desconhecidos.',
+        'Existem no papel, mas ninguém os conhece na prática.',
+        'Alguns colaboradores conhecem, mas não os vivem.',
+        'A maioria conhece e demonstra nos comportamentos.',
+        'O propósito e os valores guiam as decisões diárias de toda a empresa.'] },
+      { dim:'Tática', txt:'A liderança da empresa atua de forma consistente com os valores declarados?', opts:[
+        'A liderança contradiz os valores com frequência.',
+        'Há inconsistências entre o discurso e a prática da liderança.',
+        'A liderança tenta seguir os valores, mas com falhas.',
+        'A liderança está alinhada aos valores na maioria do tempo.',
+        'A liderança exemplifica os valores e exige consistência em toda a empresa.'] },
+      { dim:'Operacional', txt:'Existe uma rotina intencional para reforçar e desenvolver a cultura organizacional?', opts:[
+        'Não existe nenhuma ação deliberada de cultura.',
+        'Fazemos ações isoladas e sem continuidade.',
+        'Temos algumas iniciativas, mas sem programa estruturado.',
+        'Temos um programa de cultura com rituais definidos.',
+        'A cultura é gerida ativamente com rituais, indicadores e revisão contínua.'] }
     ]
   }
 ];
