@@ -1168,10 +1168,10 @@ function getPdfHtmlContent(scores, overall, lv, bm) {
   const barColors = {bf1:'#c44b3a',bf2:'#d4832a',bf3:'#c4a820',bf4:'#1a7fd4',bf5:'#3aaa50'};
   const bdColors  = {bcf1:'#c44b3a',bcf2:'#d4832a',bcf3:'#c4a820',bcf4:'#1a7fd4',bcf5:'#3aaa50'};
 
-  const W='1123px', H='794px';
+  const W='1123px', H='790px'; // Altura reduzida para dar margem de segurança
   const pageStyle=`width:${W};height:${H};padding:36px 52px;background:#f4f6fc;
     font-family:'Barlow',sans-serif;font-size:14px;line-height:1.5;color:#021D4C;
-    box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;page-break-after:always;`;
+    box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;`; 
 
   // Header original com texto ASCENDA (sem imagem para não travar o html2canvas no about:blank)
   const hdr=`
@@ -1438,7 +1438,9 @@ function getPdfHtmlContent(scores, overall, lv, bm) {
     </div>
   </div>`;
 
-  return p1+p2+p3+p4;
+  // Força a quebra de página apenas ENTRE as páginas, evitando a folha em branco no final
+  const pb = '<div style="page-break-before: always;"></div>';
+  return p1 + pb + p2 + pb + p3 + pb + p4;
 }
 
 let _pdfBusy = false;
@@ -1456,7 +1458,7 @@ function downloadPDF(btn){
   const allBtns = document.querySelectorAll('.res-print,.cta-sec');
   const orig    = btn ? btn.innerHTML : '';
   allBtns.forEach(b=>{ b.disabled=true; b.style.opacity='0.5'; });
-  if (btn) btn.innerHTML = '⏳ Aguarde...';
+  if (btn) btn.innerHTML = '⏳ Gerando PDF...';
 
   function done(){
     _pdfBusy = false;
@@ -1464,9 +1466,9 @@ function downloadPDF(btn){
     if (btn) btn.innerHTML = orig;
   }
 
-  // Mesmo mecanismo exato do sendDataToGoogle — iframe oculto + idoc.write + html2pdf
+  // 1. Cria a "Tela Virtual" de 1200px para garantir que nada seja cortado (Resolve o bug do "ASCENDA")
   const iframe = document.createElement('iframe');
-  iframe.style.cssText = 'position:absolute;left:-9999px;top:0;width:1200px;height:900px;border:0;visibility:hidden';
+  iframe.style.cssText = 'position:absolute; left:-9999px; top:0; width:1200px; height:900px; border:0; visibility:hidden;';
   document.body.appendChild(iframe);
 
   const idoc = iframe.contentDocument || iframe.contentWindow.document;
@@ -1475,27 +1477,52 @@ function downloadPDF(btn){
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script>
-    <style>*{margin:0;padding:0;box-sizing:border-box}body{background:#fff}</style>
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{background:#f4f6fc}</style>
   </head><body>
-    <div id="pdf-render" style="width:1123px;font-family:Barlow,sans-serif">${pdfHtml}</div>
+    <div id="pdf-render" style="width:1123px; font-family:'Barlow',sans-serif;">${pdfHtml}</div>
   </body></html>`);
   idoc.close();
 
-  function gerarDownload(){
+  function gerarDownloadSeguro(){
     const iwin = iframe.contentWindow;
-    const el   = idoc.getElementById('pdf-render');
-    if (!iwin.html2pdf || !el) { setTimeout(gerarDownload, 300); return; }
-    iwin.html2pdf().set({
-      margin:0, filename:fileName,
-      image:      {type:'jpeg',quality:0.98},
-      html2canvas:{scale:2,useCORS:true,letterRendering:true,windowWidth:1123},
-      jsPDF:      {unit:'mm',format:'a4',orientation:'landscape'},
-      pagebreak:  {mode:'avoid-all'}
-    }).from(el).save()
-      .then(function(){ if(iframe.parentNode) document.body.removeChild(iframe); done(); })
-      .catch(function(e){ console.error(e); if(iframe.parentNode) document.body.removeChild(iframe); done(); });
+    const el = idoc.getElementById('pdf-render');
+    if (!iwin.html2pdf || !el) { setTimeout(gerarDownloadSeguro, 300); return; }
+
+    const opt = {
+      margin: 0,
+      filename: fileName,
+      image: { type:'jpeg', quality: 1 },
+      html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 1123 },
+      jsPDF: { unit:'mm', format:'a4', orientation:'landscape' },
+      pagebreak: { mode: 'css' }
+    };
+
+    // 2. Extrai o arquivo "bruto" (Blob) sem disparar o download dentro do iframe
+    iwin.html2pdf().set(opt).from(el).outputPdf('blob')
+      .then(function(pdfBlob) {
+        // 3. Puxa o arquivo para a janela principal e dispara o clique nativo (Apple aceita perfeitamente)
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        
+        // Faxina da memória
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(iframe);
+        done();
+      })
+      .catch(function(err){
+        console.error('Erro na geração do PDF:', err);
+        if(iframe.parentNode) document.body.removeChild(iframe);
+        done();
+      });
   }
-  setTimeout(gerarDownload, 1500);
+
+  // Aguarda as fontes e a biblioteca carregarem na tela virtual
+  setTimeout(gerarDownloadSeguro, 1200);
 }
 
 /* ─── INTEGRAÇÃO GOOGLE SHEETS & DRIVE ─── */
