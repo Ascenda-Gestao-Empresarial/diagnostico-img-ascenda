@@ -1446,15 +1446,13 @@ function downloadPDF(btn){
   if (_pdfBusy) return;
   _pdfBusy = true;
 
-  // Coleta dados
   const scores  = AREAS.filter(a=>!na.has(a.id)).map(a=>({id:a.id,name:a.name,icon:a.icon,score:calcSc(a.id)}));
   const overall  = Math.round(scores.reduce((s,a)=>s+a.score,0)/scores.length);
   const lv       = getLv(overall);
   const bm       = BENCHMARK[co.segment]||BENCHMARK.default;
   const pdfHtml  = getPdfHtmlContent(scores, overall, lv, bm);
-  const fileName = 'IMG_Ascenda_' + co.company.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString('pt-BR').replace(/\//g,'-') + '.pdf';
+  const fileName = `IMG_Ascenda_${co.company.replace(/\s+/g,'_')}_${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.pdf`;
 
-  // Feedback visual
   const allBtns = document.querySelectorAll('.res-print,.cta-sec');
   const orig    = btn ? btn.innerHTML : '';
   allBtns.forEach(b=>{ b.disabled=true; b.style.opacity='0.5'; });
@@ -1466,25 +1464,38 @@ function downloadPDF(btn){
     if (btn) btn.innerHTML = orig;
   }
 
-  // Cria container oculto na própria página (mesma origem, sem restrições)
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;width:1123px;pointer-events:none;z-index:-999;background:#fff;font-family:Barlow,sans-serif';
-  wrap.innerHTML = pdfHtml;
-  document.body.appendChild(wrap);
+  // Mesmo mecanismo exato do sendDataToGoogle — iframe oculto + idoc.write + html2pdf
+  const iframe = document.createElement('iframe');
+  iframe.style.cssText = 'position:absolute;left:-9999px;top:0;width:1200px;height:900px;border:0;visibility:hidden';
+  document.body.appendChild(iframe);
 
-  html2pdf()
-    .set({
-      margin: 0,
-      filename: fileName,
-      image:      { type:'jpeg', quality:0.98 },
-      html2canvas:{ scale:2, useCORS:true, letterRendering:true, windowWidth:1123, scrollX:0, scrollY:0 },
-      jsPDF:      { unit:'mm', format:'a4', orientation:'landscape' },
-      pagebreak:  { mode:'avoid-all' }
-    })
-    .from(wrap)
-    .save()
-    .then(function(){ document.body.removeChild(wrap); done(); })
-    .catch(function(e){ console.error(e); document.body.removeChild(wrap); done(); });
+  const idoc = iframe.contentDocument || iframe.contentWindow.document;
+  idoc.open();
+  idoc.write(`<!DOCTYPE html><html><head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script>
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{background:#fff}</style>
+  </head><body>
+    <div id="pdf-render" style="width:1123px;font-family:Barlow,sans-serif">${pdfHtml}</div>
+  </body></html>`);
+  idoc.close();
+
+  function gerarDownload(){
+    const iwin = iframe.contentWindow;
+    const el   = idoc.getElementById('pdf-render');
+    if (!iwin.html2pdf || !el) { setTimeout(gerarDownload, 300); return; }
+    iwin.html2pdf().set({
+      margin:0, filename:fileName,
+      image:      {type:'jpeg',quality:0.98},
+      html2canvas:{scale:2,useCORS:true,letterRendering:true,windowWidth:1123},
+      jsPDF:      {unit:'mm',format:'a4',orientation:'landscape'},
+      pagebreak:  {mode:'avoid-all'}
+    }).from(el).save()
+      .then(function(){ if(iframe.parentNode) document.body.removeChild(iframe); done(); })
+      .catch(function(e){ console.error(e); if(iframe.parentNode) document.body.removeChild(iframe); done(); });
+  }
+  setTimeout(gerarDownload, 1500);
 }
 
 /* ─── INTEGRAÇÃO GOOGLE SHEETS & DRIVE ─── */
